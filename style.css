@@ -1,0 +1,34 @@
+.custom-navbar {
+    background-color: rgb(150, 150, 255);
+}
+
+.custom-navbar .nav-link {
+    color: white !important;
+}
+
+.custom-navbar .navbar-brand {
+    color: white !important;
+}
+
+.meme-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-meme {
+    background-color: rgb(150, 150, 255);
+    color: white !important;
+}
+
+.meme-image {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.custom-div {
+    background-color: rgb(150, 150, 255);
+    color: white !important;
+}
