@@ -3,7 +3,7 @@ let apiURL = "https://meme-api.com/gimme/";
 
 let reditSub;
 let defaultSub = "wholesomememes";
-let memeImg, memeTitle, memeBtn, subredditSearch, dataList;
+let memeImg, memeTitle, memeBtn, subredditSearch, dataList, subredditSelect;
 
 function init()
 {
@@ -12,6 +12,7 @@ function init()
     memeBtn = document.getElementById("memeBtn");
     subredditSearch = document.getElementById("subredditSearch");
     dataList = document.getElementById('subreddits');
+    subredditSelect = document.getElementById('subredditSelect');
 
     //otherwise won't load on page load
     reditSub = defaultSub;
@@ -53,7 +54,13 @@ function fetchSubreddits()
                 {
                     const option = document.createElement('option');
                     option.value = sub.data.display_name; // Set the display name as the value
+
+                    //for desktop
                     dataList.appendChild(option); // Add option to the datalist
+
+                    // Add to select (mobile)
+                    const selectOption = option.cloneNode(true); // Clone the option for select
+                    subredditSelect.appendChild(selectOption);
                 }
             });
         })

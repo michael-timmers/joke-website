@@ -32,3 +32,29 @@
     background-color: rgb(150, 150, 255);
     color: white !important;
 }
+
+/* Hide select on desktop */
+@media (min-width: 768px) {
+    #subredditSelect {
+        display: none;
+        /* Hide the select dropdown on desktop */
+    }
+
+    #subredditInput {
+        display: inline-block;
+        /* Show the input field on desktop */
+    }
+}
+
+/* Hide datalist and input on mobile */
+@media (max-width: 767px) {
+    #subredditInput {
+        display: none;
+        /* Hide the input field on mobile */
+    }
+
+    #subredditSelect {
+        display: inline-block;
+        /* Show the select dropdown on mobile */
+    }
+}
