@@ -37,20 +37,11 @@
 
         <!-- Select and Button Row -->
         <div class="d-flex justify-content-center align-items-center mb-4">
-            <!-- Select to choose subreddit -->
-            <select id="subDropDown" class="form-select me-2" style="width: 200px;">
-                <option value="AdviceAnimals">r/AdviceAnimals</option>
-                <option value="comedycemetery">r/ComedyCemetery</option>
-                <option value="cringememes">r/cringememes</option>
-                <option value="dankmemes">r/dankmemes</option>
-                <option value="funny">r/funny</option>
-                <option value="memes">r/memes</option>
-                <option value="memeeconomy">r/MemeEconomy</option>
-                <option value="prequelmemes">r/PrequelMemes</option>
-                <option value="starwarsmemes">r/starwarsmemes</option>
-                <option value="terriblefacebookmemes">r/terriblefacebookmemes</option>
-                <option value="wholesomememes" selected>r/wholesomememes</option>
-            </select>
+            <input list="subreddits" id="subredditSearch" class="form-control" placeholder="Search subreddits..."
+                width="60%">
+            <datalist id="subreddits" class="form-select me-2" style="width: 200px;">
+                <option value="wholesomememes" selected>wholesomememes</option>
+            </datalist>
 
             <!-- Button to fetch new meme -->
             <button id="memeBtn" class="btn btn-meme mb-3">Get a New Meme</button>
@@ -61,7 +52,10 @@
         <img id="memeImg" class="meme-image d-block mx-auto" src="" alt="Meme will appear here" />
 
         <br />
-        <p>All images taken from <a href="https://github.com/D3vd/Meme_Api">meme-api.com</a></p>
+        <p>All images taken from <a href="https://www.reddit.com">reddit.com</a> by <a
+                href="https://github.com/D3vd/Meme_Api">meme-api.com</a></p>
+        <br />
+        <h3>Disclaimer: some memes may be inappropriate, it is not my fault.</h3>
         <br />
     </div>
 
