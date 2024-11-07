@@ -3,7 +3,7 @@ let apiURL = "https://meme-api.com/gimme/";
 
 let reditSub;
 let defaultSub = "wholesomememes";
-let memeImg, memeTitle, memeBtn, subredditSearch, dataList, subredditSelect;
+let memeImg, memeTitle, memeBtn, subredditSearch, dataList;
 
 function init()
 {
@@ -12,7 +12,6 @@ function init()
     memeBtn = document.getElementById("memeBtn");
     subredditSearch = document.getElementById("subredditSearch");
     dataList = document.getElementById('subreddits');
-    subredditSelect = document.getElementById('subredditSelect');
 
     //otherwise won't load on page load
     reditSub = defaultSub;
@@ -24,7 +23,7 @@ function init()
     });
     subredditSearch.addEventListener("input", function (event)
     {
-        reditSub = event.target.value;
+        reditSub = sanitizeInput(event.target.value);
     });
 
     fetchSubreddits();
@@ -40,33 +39,16 @@ function fetchSubreddits()
         {
             const subredditList = data.data.children; // Access the list of subreddits
 
-            // Define keywords for meme-related subreddits
-            const memeKeywords = ["meme", "funny", "humor", "joke", "laugh", "wholesome"];
-
             // Loop through each subreddit and add it to the datalist if it matches the keywords
             subredditList.forEach(sub =>
             {
-                const description = sub.data.public_description.toLowerCase();
-                const isMemeSubreddit = memeKeywords.some(keyword => description.includes(keyword));
-
-                // Only add subreddits that match the keywords
-                if (isMemeSubreddit)
-                {
-                    const option = document.createElement('option');
-                    option.value = sub.data.display_name; // Set the display name as the value
-
-                    //for desktop
-                    dataList.appendChild(option); // Add option to the datalist
-
-                    // Add to select (mobile)
-                    const selectOption = option.cloneNode(true); // Clone the option for select
-                    subredditSelect.appendChild(selectOption);
-                }
+                const option = document.createElement('option');
+                option.value = sub.data.display_name; // Set the display name as the value
+                dataList.appendChild(option); // Add option to the datalist
             });
         })
         .catch(error => console.error('Error fetching subreddits:', error));
 }
-
 
 function fetchMeme()
 {
@@ -74,18 +56,40 @@ function fetchMeme()
         .then(response => response.json())
         .then(data =>
         {
-            // Check if the meme is safe for work
-            if (!data.nsfw)
-            {
-                memeImg.src = data.url;
-                memeTitle.textContent = data.title; // Set the title
-                memeImg.style.display = 'block'; // Make the image visible
-                memeTitle.style.display = 'block'; // Make the title visible
+            if (!data || !data.url)
+            {  // Check if 'data' is null/undefined or if it doesn't have the 'url' property
+                memeTitle.textContent = 'No meme found';  // Update the title to reflect the error
+                memeImg.src = "";
             } else
             {
-                console.warn('NSFW content detected. Skipping this meme.');
-                fetchMeme(); // Try to fetch another meme if NSFW is true
+                // Check if the meme is safe for work
+                if (!data.nsfw)
+                {
+                    memeImg.src = data.url;
+                    memeTitle.textContent = data.title; // Set the title
+                    memeImg.style.display = 'block'; // Make the image visible
+                    memeTitle.style.display = 'block'; // Make the title visible
+                } else
+                {
+                    console.warn('NSFW content detected. Skipping this meme.');
+                    fetchMeme(); // Try to fetch another meme if NSFW is true
+                }
             }
         })
         .catch(error => console.error('Error fetching meme:', error));
+}
+
+function sanitizeInput(input)
+{
+    return input.replace(/[&<>"']/g, (match) =>
+    {
+        const escapeMap = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#x27;"
+        };
+        return escapeMap[match];
+    });
 }
