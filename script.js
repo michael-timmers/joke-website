@@ -52,6 +52,7 @@ function fetchSubreddits()
 
 function fetchMeme()
 {
+    console.log("Fetching:" + apiURL + reditSub);
     fetch(apiURL + reditSub)
         .then(response => response.json())
         .then(data =>

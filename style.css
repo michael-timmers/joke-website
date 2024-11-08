@@ -28,6 +28,18 @@
     margin-top: 20px;
 }
 
+.btn-shop {
+    background-color: green;
+    color: white;
+    height: 100px;
+    width: 60%;
+    line-height: 100px;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    /* Ensure vertical alignment for inline elements */
+}
+
 .custom-div {
     background-color: rgb(150, 150, 255);
     color: white !important;
