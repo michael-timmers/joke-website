@@ -1,4 +1,5 @@
 //Thanks to https://github.com/D3vd/Meme_Api
+let redditURL = 'https://www.reddit.com/subreddits/search.json?q=memes';
 let apiURL = "https://meme-api.com/gimme/";
 
 let reditSub;
@@ -24,6 +25,8 @@ function init()
     subredditSearch.addEventListener("input", function (event)
     {
         reditSub = sanitizeInput(event.target.value);
+        // redditSub = event.target.value;
+        // console.log(sanitizeInput(event.target.value));
     });
 
     fetchSubreddits();
@@ -33,7 +36,8 @@ function init()
 function fetchSubreddits()
 {
     // Fetch the list of meme subreddits from the Reddit API
-    fetch('https://www.reddit.com/subreddits/search.json?q=memes')
+    console.log("fetching:" + redditURL);
+    fetch(redditURL)
         .then(response => response.json())
         .then(data =>
         {
@@ -45,6 +49,7 @@ function fetchSubreddits()
                 const option = document.createElement('option');
                 option.value = sub.data.display_name; // Set the display name as the value
                 dataList.appendChild(option); // Add option to the datalist
+                console.log("appended");
             });
         })
         .catch(error => console.error('Error fetching subreddits:', error));
